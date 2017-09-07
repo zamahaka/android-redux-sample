@@ -15,7 +15,7 @@ import com.shazam.androidredux.redux.DispatcherHolder
 import com.shazam.androidredux.redux.SimpleStore
 import rx.android.schedulers.AndroidSchedulers
 
-class MainDispatcherHolder : DispatcherHolder<MainState, MainViewState, MainDispatcher>(
+class MainDispatcherHolder : DispatcherHolder<MainState, ChartAction, MainViewState, MainDispatcher>(
         MainDispatcher(
                 ChartMiddleware(RestClient.chartService())::getChart,
                 SimpleStore(emptyMainState, MainReducer),

@@ -10,17 +10,13 @@
 
 package com.shazam.androidredux.ui.track
 
-import com.shazam.androidredux.redux.Action
 import com.shazam.androidredux.redux.Reducer
 
-object TrackReducer : Reducer<TrackState> {
+object TrackReducer : Reducer<TrackState, TrackAction> {
 
-    override fun reduce(oldState: TrackState, action: Action): TrackState {
-        return when (action) {
-            is TrackActions.TrackLoadingAction -> TrackState(isLoading = true, loadingTrackKey = action.key)
-            is TrackActions.TrackErrorAction -> TrackState(error = action.error)
-            is TrackActions.TrackResultAction -> TrackState(track = action.track)
-            else -> oldState
-        }
+    override fun reduce(oldState: TrackState, action: TrackAction) = when (action) {
+        is TrackAction.TrackLoadingAction -> TrackState(isLoading = true, loadingTrackKey = action.key)
+        is TrackAction.TrackErrorAction -> TrackState(error = action.error)
+        is TrackAction.TrackResultAction -> TrackState(track = action.track)
     }
 }

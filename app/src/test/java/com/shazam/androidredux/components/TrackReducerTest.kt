@@ -10,16 +10,9 @@
 
 package com.shazam.androidredux.components
 
-import com.shazam.androidredux.R.id.key
-import com.shazam.androidredux.model.Chart
 import com.shazam.androidredux.model.Track
-import com.shazam.androidredux.ui.main.ChartActions
-import com.shazam.androidredux.ui.main.MainReducer
-import com.shazam.androidredux.ui.main.MainState
 import com.shazam.androidredux.ui.track.*
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.*
-import org.junit.Assert
 import org.junit.Assert.assertThat
 import org.junit.Test
 
@@ -37,7 +30,7 @@ class TrackReducerTest {
 
         assertThat(
                 givenState = TrackState(isLoading = false),
-                whenAction = TrackActions.TrackLoadingAction(key),
+                whenAction = TrackAction.TrackLoadingAction(key),
                 thenState = TrackState(isLoading = true, loadingTrackKey = key, track = null, error = null)
         )
     }
@@ -47,7 +40,7 @@ class TrackReducerTest {
 
         assertThat(
                 givenState = TrackState(error = null),
-                whenAction = TrackActions.TrackErrorAction(an_error),
+                whenAction = TrackAction.TrackErrorAction(an_error),
                 thenState = TrackState(error = an_error, track = null, isLoading = false)
         )
 
@@ -58,12 +51,12 @@ class TrackReducerTest {
 
         assertThat(
                 givenState = TrackState(track = null),
-                whenAction = TrackActions.TrackResultAction(a_track),
+                whenAction = TrackAction.TrackResultAction(a_track),
                 thenState = TrackState(track = a_track, error = null, isLoading = false)
         )
     }
 
-    private fun assertThat(givenState: TrackState, whenAction: TrackActions, thenState: TrackState) {
+    private fun assertThat(givenState: TrackState, whenAction: TrackAction, thenState: TrackState) {
         val actual = TrackReducer.reduce(givenState, whenAction)
         assertThat(actual, equalTo(thenState))
     }

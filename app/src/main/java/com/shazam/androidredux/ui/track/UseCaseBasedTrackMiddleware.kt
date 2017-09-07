@@ -17,11 +17,11 @@ import rx.schedulers.Schedulers
 class UseCaseBasedTrackMiddleware(private val chartsService: ChartsService)
     : TrackMiddleware {
 
-    override fun fetchTrack(key: String): Observable<TrackActions> =
+    override fun fetchTrack(key: String): Observable<TrackAction> =
             chartsService.getChart()
                     .map { it.fullChart.first { it.key == key } }
-                    .map { TrackActions.TrackResultAction(it) as TrackActions }
-                    .onErrorReturn { TrackActions.TrackErrorAction(it) }
-                    .startWith(TrackActions.TrackLoadingAction(key))
+                    .map { TrackAction.TrackResultAction(it) as TrackAction }
+                    .onErrorReturn { TrackAction.TrackErrorAction(it) }
+                    .startWith(TrackAction.TrackLoadingAction(key))
                     .subscribeOn(Schedulers.io())
 }

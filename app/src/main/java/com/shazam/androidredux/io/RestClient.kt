@@ -11,6 +11,7 @@
 package com.shazam.androidredux.io
 
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RestClient {
@@ -19,7 +20,7 @@ object RestClient {
         val retrofit = retrofit2.Retrofit.Builder()
                 .baseUrl("https://amp.shazam.com/shazam/v2/en/US/android/-/")
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
         return retrofit.create<ChartsService>(ChartsService::class.java)

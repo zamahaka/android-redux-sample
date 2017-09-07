@@ -28,7 +28,7 @@ class MainReducerTest {
     fun `should return state with loading when is loading`() {
         assertThat(
                 givenState = MainState(chart = null, error = null, isLoading = false),
-                whenAction = ChartActions.ChartProgress,
+                whenAction = ChartAction.ChartProgress,
                 thenState = MainState(chart = null, error = null, isLoading = true)
         )
     }
@@ -37,7 +37,7 @@ class MainReducerTest {
     fun `should return state with error when error provided`() {
         assertThat(
                 givenState = MainState(chart = null, error = null, isLoading = false),
-                whenAction = ChartActions.ChartResultError(an_error),
+                whenAction = ChartAction.ChartResultError(an_error),
                 thenState = MainState(chart = null, error = an_error, isLoading = false)
         )
     }
@@ -47,13 +47,13 @@ class MainReducerTest {
 
         assertThat(
                 givenState = MainState(chart = null, error = null, isLoading = false),
-                whenAction = ChartActions.ChartResultSuccess(a_chart),
+                whenAction = ChartAction.ChartResultSuccess(a_chart),
                 thenState = MainState(chart = a_chart, error = null, isLoading = false)
         )
     }
 
 
-    private fun assertThat(givenState: MainState, whenAction: ChartActions, thenState: MainState) {
+    private fun assertThat(givenState: MainState, whenAction: ChartAction, thenState: MainState) {
         val actual = MainReducer.reduce(givenState, whenAction)
         assertThat(actual, equalTo(thenState))
     }

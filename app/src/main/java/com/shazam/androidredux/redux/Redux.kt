@@ -19,22 +19,22 @@ interface Action
 
 interface State
 
-interface Reducer<S : State> {
-    fun reduce(oldState: S, action: Action): S
+interface Reducer<S : State, in A : Action> {
+    fun reduce(oldState: S, action: A): S
 }
 
-interface Store<S : State> {
-    fun dispatch(action: Action)
-    fun dispatch(actions: Observable<out Action>)
+interface Store<S : State, in A : Action> {
+    fun dispatch(action: A)
+    fun dispatch(actions: Observable<out A>)
     fun asObservable(): Observable<S>
     fun currentState(): S
     fun tearDown()
 }
 
-class SimpleStore<S : State>(private val initialValue: S,
-                             reducer: Reducer<S>) : Store<S> {
+class SimpleStore<S : State, in A : Action>(private val initialValue: S,
+                                            reducer: Reducer<S, A>) : Store<S, A> {
 
-    private val actionsSubject = PublishSubject.create<Action>()
+    private val actionsSubject = PublishSubject.create<A>()
     private val statesSubject = BehaviorSubject.create<S>()
 
     private val compositeSub = CompositeSubscription()
@@ -47,11 +47,11 @@ class SimpleStore<S : State>(private val initialValue: S,
         )
     }
 
-    override fun dispatch(action: Action) {
+    override fun dispatch(action: A) {
         actionsSubject.onNext(action)
     }
 
-    override fun dispatch(actions: Observable<out Action>) {
+    override fun dispatch(actions: Observable<out A>) {
         compositeSub.add(actions.subscribe { dispatch(it) })
     }
 

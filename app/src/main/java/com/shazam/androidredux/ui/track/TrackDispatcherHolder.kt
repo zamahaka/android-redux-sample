@@ -16,9 +16,9 @@ import com.shazam.androidredux.redux.SimpleStore
 import com.shazam.androidredux.ui.track.*
 
 
-class TrackDispatcherHolder : DispatcherHolder<TrackState, TrackViewState, TrackDispatcher>(
+class TrackDispatcherHolder : DispatcherHolder<TrackState, TrackAction, TrackViewState, TrackDispatcher>(
         TrackDispatcher(
-                UseCaseBasedTrackMiddleware(RestClient.chartService() ),
+                UseCaseBasedTrackMiddleware(RestClient.chartService()),
                 SimpleStore(emptyTrackState, TrackReducer)
         )
 )

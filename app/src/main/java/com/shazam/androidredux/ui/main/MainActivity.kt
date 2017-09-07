@@ -35,7 +35,7 @@ class MainActivity : LifecycleActivity() {
     private val mainActivityViewAdapter = MainActivityViewAdapter()
     private val subscriptions = CompositeSubscription()
 
-    val mainDispatcher by lazy { getDispatcher(MainDispatcherHolder::class.java) }
+    private val mainDispatcher by lazy { getDispatcher<MainDispatcher>(MainDispatcherHolder::class) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +44,10 @@ class MainActivity : LifecycleActivity() {
         recyclerView.adapter = mainActivityViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        DispatcherBinder(this.lifecycle, mainDispatcher) { mainViewState ->
-            mainActivityViewAdapter.bindResults(mainViewState.chart?.fullChart ?: emptyList())
-            progressBar.visibility = if (mainViewState.isLoading) VISIBLE else GONE
-            errorMessage.text = mainViewState.error?.message
+        DispatcherBinder(this.lifecycle, mainDispatcher) { (chart, error, isLoading) ->
+            mainActivityViewAdapter.bindResults(chart?.fullChart ?: emptyList())
+            progressBar.visibility = if (isLoading) VISIBLE else GONE
+            errorMessage.text = error?.message
         }
     }
 

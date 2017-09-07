@@ -15,8 +15,8 @@ import com.shazam.androidredux.redux.Store
 import rx.android.schedulers.AndroidSchedulers
 
 class TrackDispatcher(private val trackMiddleware: TrackMiddleware,
-                      store: Store<TrackState> ) :
-        ReduxDipatcher<TrackState, TrackViewState>(
+                      store: Store<TrackState, TrackAction>) :
+        ReduxDipatcher<TrackState, TrackAction, TrackViewState>(
                 store,
                 AndroidSchedulers.mainThread(),
                 ::mapTrackStateToTrackViewState) {

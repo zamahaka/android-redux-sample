@@ -13,8 +13,4 @@ package com.shazam.androidredux.model
 import com.google.gson.annotations.SerializedName
 
 
-data class Chart(
-
-        @SerializedName("chart")
-        val fullChart: List<Track> = emptyList()
-)
+data class Chart(@SerializedName("chart") val fullChart: List<Track> = emptyList())

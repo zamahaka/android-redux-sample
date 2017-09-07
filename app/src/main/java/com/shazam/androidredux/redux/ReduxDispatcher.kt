@@ -12,9 +12,9 @@ package com.shazam.androidredux.redux
 
 import rx.Scheduler
 
-abstract class ReduxDipatcher<S : State, out VS : ViewState>(protected val store: Store<S>,
-                                                             private val mainScheduler: Scheduler,
-                                                             private val viewStateMapper: (S) -> VS) {
+abstract class ReduxDipatcher<S : State, in A : Action, out VS : ViewState>(protected val store: Store<S, A>,
+                                                                            private val mainScheduler: Scheduler,
+                                                                            private val viewStateMapper: (S) -> VS) {
 
     /**
      * Override to transform the state

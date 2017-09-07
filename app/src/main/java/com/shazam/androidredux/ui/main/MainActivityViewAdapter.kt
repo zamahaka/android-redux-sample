@@ -12,7 +12,6 @@ package com.shazam.androidredux.ui.main
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import com.shazam.androidredux.R
 import com.shazam.androidredux.model.Track
 import com.shazam.androidredux.ui.main.MainActivityViewAdapter.ViewHolder
@@ -30,16 +29,14 @@ class MainActivityViewAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val track = tracks[position]
-         holder.trackView.bindTo(track.key)
+        holder.trackView.bindTo(track.key)
     }
 
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.view_track, parent, false))
+                    .inflate(R.layout.view_track, parent, false) as TrackView)
 
     override fun getItemCount(): Int = tracks.size
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val trackView = view as TrackView
-    }
+    class ViewHolder(val trackView: TrackView) : RecyclerView.ViewHolder(trackView)
 }

@@ -12,9 +12,9 @@ package com.shazam.androidredux.ui.main
 
 import rx.Observable
 
-class FakeMainChartMiddleware(val observableToReturn: Observable<ChartActions>) : () -> Observable<ChartActions> {
+class FakeMainChartMiddleware(val observableToReturn: Observable<ChartAction>) : () -> Observable<ChartAction> {
 
-    override fun invoke(): Observable<ChartActions> {
+    override fun invoke(): Observable<ChartAction> {
         return observableToReturn
     }
 }

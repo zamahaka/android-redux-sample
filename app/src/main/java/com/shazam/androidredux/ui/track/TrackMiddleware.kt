@@ -15,11 +15,11 @@ import com.shazam.androidredux.redux.Action
 import rx.Observable
 
 interface TrackMiddleware {
-    fun fetchTrack(key: String): Observable<TrackActions>
+    fun fetchTrack(key: String): Observable<TrackAction>
 }
 
-sealed class TrackActions : Action {
-    data class TrackLoadingAction(val key: String) : TrackActions()
-    data class TrackErrorAction(val error: Throwable) : TrackActions()
-    data class TrackResultAction(val track: Track) : TrackActions()
+sealed class TrackAction : Action {
+    data class TrackLoadingAction(val key: String) : TrackAction()
+    data class TrackErrorAction(val error: Throwable) : TrackAction()
+    data class TrackResultAction(val track: Track) : TrackAction()
 }

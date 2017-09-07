@@ -16,10 +16,10 @@ import rx.Observable
 import rx.Scheduler
 import rx.Subscription
 
-class MainDispatcher(private val chartMiddleware: () -> Observable<ChartActions>,
-                     simpleStore: Store<MainState>,
+class MainDispatcher(private val chartMiddleware: () -> Observable<ChartAction>,
+                     simpleStore: Store<MainState, ChartAction>,
                      scheduler: Scheduler)
-    : ReduxDipatcher<MainState, MainViewState>(
+    : ReduxDipatcher<MainState, ChartAction, MainViewState>(
         simpleStore,
         scheduler,
         ::mapChartStateToMainViewState) {

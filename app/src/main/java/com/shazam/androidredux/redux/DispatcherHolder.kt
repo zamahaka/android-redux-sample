@@ -11,7 +11,8 @@ package com.shazam.androidredux.redux
 
 import android.arch.lifecycle.ViewModel
 
-abstract class DispatcherHolder<S : State, out VS : ViewState, out D : ReduxDipatcher<S, VS>>(val dispatcher: D) : ViewModel() {
+abstract class DispatcherHolder<S : State, in A : Action, out VS : ViewState, out D : ReduxDipatcher<S, A, VS>>
+(val dispatcher: D) : ViewModel() {
 
     override fun onCleared() {
         dispatcher.onCleared()

@@ -18,16 +18,16 @@ import rx.schedulers.Schedulers
 
 class ChartMiddleware(private val chartsService: ChartsService) {
 
-    fun getChart(): Observable<ChartActions> =
+    fun getChart(): Observable<ChartAction> =
             chartsService.getChart()
-                    .map { ChartActions.ChartResultSuccess(it) as ChartActions }
+                    .map { ChartAction.ChartResultSuccess(it) as ChartAction }
                     .subscribeOn(Schedulers.io())
-                    .onErrorReturn { ChartActions.ChartResultError(it) }
-                    .startWith(ChartActions.ChartProgress)
+                    .onErrorReturn { ChartAction.ChartResultError(it) }
+                    .startWith(ChartAction.ChartProgress)
 }
 
-sealed class ChartActions : Action {
-    data class ChartResultSuccess(val chart: Chart) : ChartActions()
-    data class ChartResultError(val error: Throwable) : ChartActions()
-    object ChartProgress : ChartActions()
+sealed class ChartAction : Action {
+    data class ChartResultSuccess(val chart: Chart) : ChartAction()
+    data class ChartResultError(val error: Throwable) : ChartAction()
+    object ChartProgress : ChartAction()
 }

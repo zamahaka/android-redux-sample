@@ -11,17 +11,13 @@
 package com.shazam.androidredux.ui.main
 
 
-import com.shazam.androidredux.redux.Action
 import com.shazam.androidredux.redux.Reducer
 
-object MainReducer : Reducer<MainState> {
+object MainReducer : Reducer<MainState, ChartAction> {
 
-    override fun reduce(oldState: MainState, action: Action): MainState {
-        return when (action) {
-            is ChartActions.ChartProgress -> emptyMainState.copy(isLoading = true)
-            is ChartActions.ChartResultError -> emptyMainState.copy(error = action.error)
-            is ChartActions.ChartResultSuccess -> emptyMainState.copy(chart = action.chart)
-            else -> oldState
-        }
+    override fun reduce(oldState: MainState, action: ChartAction) = when (action) {
+        is ChartAction.ChartProgress -> emptyMainState.copy(isLoading = true)
+        is ChartAction.ChartResultError -> emptyMainState.copy(error = action.error)
+        is ChartAction.ChartResultSuccess -> emptyMainState.copy(chart = action.chart)
     }
 }

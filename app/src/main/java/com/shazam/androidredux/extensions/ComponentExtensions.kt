@@ -13,17 +13,15 @@ package com.shazam.androidredux.extensions
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
-import com.shazam.androidredux.redux.DispatcherHolder
-import com.shazam.androidredux.redux.ReduxDipatcher
-import com.shazam.androidredux.redux.State
-import com.shazam.androidredux.redux.ViewState
+import com.shazam.androidredux.redux.*
+import kotlin.reflect.KClass
 
-fun <T : ReduxDipatcher<out State, ViewState>> Fragment.getDispatcher(clazz: Class<out DispatcherHolder<out State, ViewState, T>>): T {
-    @Suppress("UNCHECKED_CAST")
-    return (ViewModelProviders.of(this).get(clazz) as DispatcherHolder<out State, ViewState, ReduxDipatcher<out State, ViewState>>).dispatcher as T
+fun <T : ReduxDipatcher<State, Action, ViewState>> Fragment.getDispatcher(
+        clazz: KClass<DispatcherHolder<State, Action, ViewState, T>>): T {
+    return ViewModelProviders.of(this).get(clazz.java).dispatcher
 }
 
-fun <T : ReduxDipatcher<out State, ViewState>> FragmentActivity.getDispatcher(clazz: Class<out DispatcherHolder<out State, ViewState, T>>): T {
-    @Suppress("UNCHECKED_CAST")
-    return (ViewModelProviders.of(this).get(clazz) as DispatcherHolder<out State, ViewState, ReduxDipatcher<out State, ViewState>>).dispatcher as T
+fun <T : ReduxDipatcher<State, Action, ViewState>> FragmentActivity.getDispatcher(
+        clazz: KClass<DispatcherHolder<State, Action, ViewState, T>>): T {
+    return ViewModelProviders.of(this).get(clazz.java).dispatcher
 }

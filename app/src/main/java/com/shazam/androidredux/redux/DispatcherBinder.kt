@@ -15,9 +15,9 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import rx.Subscription
 
-class DispatcherBinder<S : State, VS : ViewState>(lifecycle: Lifecycle,
-                                                  private val reduxDipatcher: ReduxDipatcher<S, VS>,
-                                                  private val onNext: (VS) -> Unit
+class DispatcherBinder<S : State, A : Action, VS : ViewState>(lifecycle: Lifecycle,
+                                                              private val reduxDipatcher: ReduxDipatcher<S, A, VS>,
+                                                              private val onNext: (VS) -> Unit
 ) : LifecycleObserver {
 
     private var subscription: Subscription? = null

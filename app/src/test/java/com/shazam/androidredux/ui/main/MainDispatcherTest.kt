@@ -32,7 +32,7 @@ class MainDispatcherTest {
     @Test
     fun shouldDispatchToStore() {
 
-        val actions: PublishSubject<ChartActions> = PublishSubject.create()
+        val actions: PublishSubject<ChartAction> = PublishSubject.create()
 
         mockery expecting {
             allowing(store).asObservable()
@@ -50,7 +50,7 @@ class MainDispatcherTest {
 
     @Test
     fun shouldNotDispatchIfAlreadyLoading() {
-        val actions: PublishSubject<ChartActions> = PublishSubject.create()
+        val actions: PublishSubject<ChartAction> = PublishSubject.create()
 
         mockery expecting {
             allowing(store).asObservable()
