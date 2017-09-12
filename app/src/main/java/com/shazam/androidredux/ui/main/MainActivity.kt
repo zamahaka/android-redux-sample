@@ -35,7 +35,7 @@ class MainActivity : LifecycleActivity() {
     private val mainActivityViewAdapter = MainActivityViewAdapter()
     private val subscriptions = CompositeSubscription()
 
-    private val mainDispatcher by lazy { getDispatcher<MainDispatcher>(MainDispatcherHolder::class) }
+    private val mainDispatcher by lazy { getDispatcher(MainDispatcherHolder::class) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

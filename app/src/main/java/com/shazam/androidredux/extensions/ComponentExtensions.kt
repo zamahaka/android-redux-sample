@@ -16,12 +16,12 @@ import android.support.v4.app.FragmentActivity
 import com.shazam.androidredux.redux.*
 import kotlin.reflect.KClass
 
-fun <T : ReduxDipatcher<State, Action, ViewState>> Fragment.getDispatcher(
-        clazz: KClass<DispatcherHolder<State, Action, ViewState, T>>): T {
+fun <S : State, A : Action, VS : ViewState, T : ReduxDipatcher<S, A, VS>> Fragment.getDispatcher(
+        clazz: KClass<out DispatcherHolder<S, A, VS, T>>): T {
     return ViewModelProviders.of(this).get(clazz.java).dispatcher
 }
 
-fun <T : ReduxDipatcher<State, Action, ViewState>> FragmentActivity.getDispatcher(
-        clazz: KClass<DispatcherHolder<State, Action, ViewState, T>>): T {
+fun <S : State, A : Action, VS : ViewState, T : ReduxDipatcher<S, A, VS>> FragmentActivity.getDispatcher(
+        clazz: KClass<out DispatcherHolder<S, A, VS, T>>): T {
     return ViewModelProviders.of(this).get(clazz.java).dispatcher
 }
